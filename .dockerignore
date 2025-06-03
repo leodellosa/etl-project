@@ -1,0 +1,26 @@
+# Ignore the local virtual environment
+.venv
+
+# Bytecode and cache
+__pycache__/
+*.py[cod]
+
+# Django local database (optional – keep if you're using volumes)
+# db.sqlite3
+
+# # Environment config
+.env
+
+# macOS / editor junk
+.DS_Store
+*.swp
+
+# Logs
+*.log
+
+# Editor folders
+.vscode/
+.idea/
+
+# Node stuff (not needed in final image)
+**/node_modules

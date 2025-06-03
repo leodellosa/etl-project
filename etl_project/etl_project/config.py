@@ -4,10 +4,10 @@ from django.core.exceptions import ImproperlyConfigured
 
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
 load_dotenv(dotenv_path, override=True)  # <--- force override
-print(f"Loaded environment variables from {dotenv_path}")
+# print(f"Loaded environment variables from {dotenv_path}")
 
 DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
-print(f"DJANGO_ENV: {DJANGO_ENV}")
+# print(f"DJANGO_ENV: {DJANGO_ENV}")
 # etl_project/etl_project/config.py
 DEFAULT_USER_API_URL = os.getenv("USER_API_URL", "http://127.0.0.1:8000")
 DEFAULT_COURSE_API_URL = os.getenv("COURSE_API_URL", "http://127.0.0.1:8000")

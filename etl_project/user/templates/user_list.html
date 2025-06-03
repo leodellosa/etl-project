@@ -59,18 +59,35 @@
 							<div class="p-6 flex flex-col justify-between">
 								<div class="mb-3">
 									<h5 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-										{{ user.email }}
-									</h5>
-									<p class="text-sm text-gray-500 dark:text-gray-400">
-										{{ user.age }} — {{ user.date_of_birth }}
-									</p>
+                                        {{ user.complete_name }}
+                                    </h5>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        {{ user.email }}<br>
+                                        Age: {{ user.age }} | DOB: {{ user.date_of_birth }}<br>
+                                        Role: {{ user.get_role_display }} | Viber: {{ user.mobile_number }}<br>
+                                        Status: {{ user.get_status_display }} | Registered: {{ user.registration_date }}
+                                    </p>
 								</div>
 			
-								<div class="flex space-x-2">
-									<span class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
-									  Learner
-									</span>
-								  </div>		  
+                                <div class="flex space-x-2">
+                                    {% if user.role == "learner" %}
+                                        <span class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
+                                            Learner
+                                        </span>
+                                    {% elif user.role == "instructor" %}
+                                        <span class="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
+                                            Instructor
+                                        </span>
+                                    {% elif user.role == "admin" %}
+                                        <span class="text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
+                                            Admin
+                                        </span>
+                                    {% else %}
+                                        <span class="text-gray-700 bg-gray-200 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
+                                            Unknown
+                                        </span>
+                                    {% endif %}
+                                </div>
 							</div>
 						</div>
 					</div>

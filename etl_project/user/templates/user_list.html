@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="flex justify-between items-center mb-4 mx-4">
+     <form method="GET" action="#" class="flex items-center space-x-2">
+        <input 
+            type="text" 
+            name="q" 
+            value="{{ query }}" 
+            placeholder="Search by email..." 
+            class="w-64 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+        >
+        <button 
+            type="submit" 
+            class="px-4 py-2 bg-red-700 text-white rounded-md text-sm hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-500"
+        >
+            Search
+        </button>
+        {% if query %}
+        <a 
+            href="{% url 'user_list' %}" 
+            class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md text-sm hover:bg-gray-400 focus:outline-none"
+        >
+            Clear
+        </a>
+        {% endif %}
+    </form>
+    <a href="#">
+        <button class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+            Add User
+        </button>
+    </a>
+</div>
+
+<div class="relative overflow-x-auto">
+    {% if users %}
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+        </thead>
+        <tbody>
+            {% for user in users %}
+			<tr class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+				<td class="px-4 py-2 align-top">
+					<div class="w-full overflow-hidden">
+						<div class="flex min-h-[120px]"> 
+							<div class="flex items-center justify-center w-32 bg-gray-100 dark:bg-gray-700">
+								{% if user.image_url %}
+									<img class="h-20 w-20 object-cover rounded-full" src="{{ user.image_url }}" alt="Profile image">
+								{% else %}
+									<svg class="w-10 h-10 text-gray-500 dark:text-gray-300" aria-hidden="true"
+										 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+											  d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+									</svg>
+								{% endif %}
+							</div>
+			
+							<div class="p-6 flex flex-col justify-between">
+								<div class="mb-3">
+									<h5 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+										{{ user.email }}
+									</h5>
+									<p class="text-sm text-gray-500 dark:text-gray-400">
+										{{ user.age }} — {{ user.date_of_birth }}
+									</p>
+								</div>
+			
+								<div class="flex space-x-2">
+									<span class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
+									  Learner
+									</span>
+								  </div>		  
+							</div>
+						</div>
+					</div>
+				</td>
+				<td class="px-4 py-2 text-sm whitespace-nowrap text-center align-middle">
+                    <div class="flex justify-center">
+                        <a href="{% url 'user_by_id' user.id %}">
+                            <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-3 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                Check Profile
+                            </button>
+                        </a>
+                    </div>
+                </td>
+			</tr>
+			
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-md mt-4 mx-4">
+        <svg class="w-12 h-12 mb-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">No Users found</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">
+            We couldn't find any users matching your search.
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

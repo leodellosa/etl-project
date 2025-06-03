@@ -1,0 +1,34 @@
+{% if messages %}
+  <div id="toast-container" class="fixed top-5 right-5 space-y-4 z-50">
+    {% for message in messages %}
+      <div class="toast bg-green-500 text-white p-4 rounded-lg shadow-md max-w-xs transition-opacity duration-500 opacity-100"
+           {% if message.tags == 'error' %} style="background-color: #f56565;" {% endif %}
+           data-message="{{ message }}">
+        <div class="flex items-center">
+          <span class="mr-3">
+            {% if message.tags == 'success' %} ✔️ {% else %} ❌ {% endif %}
+          </span>
+          <span>{{ message }}</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get all toast elements
+    const toasts = document.querySelectorAll('.toast');
+    
+    toasts.forEach((toast) => {
+      // Show toast initially
+      toast.classList.remove('hidden');
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('opacity-0');  // Gradually fade out the toast
+        setTimeout(() => toast.classList.add('hidden'), 500); // Hide it after fade out completes
+      }, 3000);  // 3 seconds before disappearing
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Django static/media files
+**/productionfiles/
+**/staticfiles/
+**/media/
+*.sqlite3
+db.sqlite3
+
+# VSCode & IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+# .env
+
+# Migrations (optional: keep if you want them versioned)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+**/migrations/*.pyo 

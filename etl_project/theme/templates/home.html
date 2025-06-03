@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="bg-white dark:bg-gray-900">
+  <div class="max-w-screen-xl px-4 py-16 mx-auto text-center lg:py-24 lg:px-6">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+        Welcome to Seven Seven
+      </h1>
+      <p class="mt-6 text-lg text-gray-700 dark:text-gray-300">
+        Empowering your learning and development journey through engaging content and a thriving community.
+      </p>
+      <div class="mt-8 flex justify-center space-x-4">
+        <a href="{% url 'course_list' %}" class="px-6 py-3 text-white bg-red-600 rounded hover:bg-red-700 text-sm font-medium">
+          Browse Courses
+        </a>
+        <a href="{% url 'user_list' %}" class="px-6 py-3 text-red-600 border border-red-600 rounded hover:bg-red-100 text-sm font-medium">
+          Meet Our Users
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gray-50 dark:bg-gray-800">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6">
+    <div class="grid gap-8 lg:grid-cols-3">
+      <div class="p-6 bg-white rounded-lg shadow dark:bg-gray-700">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Interactive Courses</h3>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          Learn at your own pace with structured, easy-to-follow materials and quizzes.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow dark:bg-gray-700">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Leaderboards</h3>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          Track your progress and compete with others to stay motivated.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow dark:bg-gray-700">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Community Forums</h3>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          Share knowledge, ask questions, and grow with your peers.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

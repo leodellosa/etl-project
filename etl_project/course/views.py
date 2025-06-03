@@ -6,6 +6,9 @@ from django.contrib import messages
 from etl_project.config import DJANGO_ENV, get_api_urls
 import requests
 from admin_panel.models import APISettings
+import logging
+
+logger = logging.getLogger('myapp')
  
 def course_list(request):
     _, COURSE_API_URL = get_api_urls()
@@ -27,6 +30,10 @@ def course_list(request):
                 else "Course API is currently unavailable."
             )
             messages.error(request, custom_msg)
+            logger.error(f"RequestException while fetching courses: {e}")
+        except Exception as e:
+            messages.error(request, f"An unexpected error occurred: {str(e)}")
+            logger.exception("Unexpected error in course_list view")
 
         return render(request, "course_list.html", {"courses": courses})
 
@@ -60,6 +67,10 @@ def course_detail_by_id(request, id):
         except requests.exceptions.RequestException as e:
                 error_msg = settings.get_course_api_message() if settings else "Course API is currently unavailable."
                 messages.error(request, error_msg)   
+                logger.error(f"RequestException while fetching course id: {id} - {e}")
+        except Exception as e:
+            messages.error(request, f"An unexpected error occurred: {str(e)}")
+            logger.exception("Unexpected error in get course_detail_by_id view")
         
         return render(request, 'course_list.html', {'courses': []})
     else:

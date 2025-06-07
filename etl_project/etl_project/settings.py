@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'course',
     'tailwind',
     'theme',
-    'admin_panel'
+    'admin_panel',
+    'nested_admin',
 ]
 
 TAILWIND_APP_NAME = 'theme'

@@ -59,13 +59,12 @@
 							<div class="p-6 flex flex-col justify-between">
 								<div class="mb-3">
 									<h5 class="mb-2 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                        {{ user.complete_name }}
+                                        {{ user.completeName }}
                                     </h5>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">
                                         {{ user.email }}<br>
-                                        Age: {{ user.age }} | DOB: {{ user.date_of_birth }}<br>
-                                        Role: {{ user.get_role_display }} | Viber: {{ user.mobile_number }}<br>
-                                        Status: {{ user.get_status_display }} | Registered: {{ user.registration_date }}
+                                        Role: {{ user.role }} | Viber: {{ user.mobile }}<br>
+                                        Status: {{ user.status }} | Registered: {{ user.created_at_formatted }}
                                     </p>
 								</div>
 			
@@ -84,7 +83,7 @@
                                         </span>
                                     {% else %}
                                         <span class="text-gray-700 bg-gray-200 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
-                                            Unknown
+                                            {{ user.role }}
                                         </span>
                                     {% endif %}
                                 </div>

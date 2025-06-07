@@ -1,41 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-{%include "form_messages.html" %}
+{% include "form_messages.html" %}
+
 <div class="max-w-4xl mx-auto mt-10 px-4">
     <div class="bg-white dark:bg-red-800 border border-gray-200 dark:border-red-700 rounded-lg shadow-sm p-6">
         <div class="flex items-center gap-12">
         
-          <div class="w-24 h-24 flex items-center justify-center bg-gray-100 dark:bg-red-700 rounded-full overflow-hidden">
-            {% if user.image_url %}
-              <img class="w-full h-full object-cover" src="{{ user.image_url }}" alt="User Image">
-            {% else %}
-              <svg class="w-12 h-12 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 
-                  3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 
-                  8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-              </svg>
-            {% endif %}
-          </div>
-      
-          <div class="p-4">
-            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ user.email }}</h2>
-            <p class="text-gray-500 dark:text-gray-400">Age: {{ user.age }}</p>
-            <p class="text-gray-500 dark:text-gray-400">Date of birth: {{ user.date_of_birth }}</p>
-            <span class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 font-medium text-xs px-3 py-1 rounded-full shadow-sm">
-									  Learner
-						</span>
-          </div>
+            <div class="w-24 h-24 flex items-center justify-center bg-gray-100 dark:bg-red-700 rounded-full overflow-hidden">
+                {% if user.image_url %}
+                    <img class="w-full h-full object-cover" src="{{ user.image_url }}" alt="User Image">
+                {% else %}
+                    <svg class="w-12 h-12 text-gray-500 dark:text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 
+                              3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 
+                              8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                    </svg>
+                {% endif %}
+            </div>
+
+            <div class="p-4">
+                <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ user.completeName }}</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-300 mb-1">Email: {{ user.email }}</p>
+                {% if user.mobile %}
+                    <p class="text-sm text-gray-500 dark:text-gray-300 mb-1">Mobile: {{ user.mobile }}</p>
+                {% endif %}
+                <p class="text-sm text-gray-500 dark:text-gray-300 mb-1">Role: {{ user.role|default:"Learner" }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-300 mb-1">Status: {{ user.status|default:"Active" }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-300">
+                    Registered: {{ user.created_at_formatted }}
+                </p>
+            </div>
         </div>
-      </div>
-      <div class="mt-6 py-2">
+    </div>
+
+    <div class="mt-6 py-2">
         <a href="{% url 'user_list' %}" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-medium px-4 py-2 rounded">
             ← Back to User List
         </a>
         <a href="#" class="inline-block bg-red-600 hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded ml-2">
             Edit User
         </a>
-      </div>
+    </div>
 </div>
 
 {% endblock %}

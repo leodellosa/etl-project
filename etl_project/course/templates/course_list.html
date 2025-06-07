@@ -2,106 +2,139 @@
 {% block content %}
 
 <div class="flex justify-between items-center mb-4 mx-4">
-     <form method="GET" action="{% url 'course_list' %}" class="flex items-center space-x-2">
-        <input 
-            type="text" 
-            name="q" 
-            value="{{ query }}" 
-            placeholder="Search by title..." 
-            class="w-64 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
-        >
-        <button 
-            type="submit" 
-            class="px-4 py-2 bg-red-700 text-white rounded-md text-sm hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-500"
-        >
-            Search
-        </button>
-        {% if query %}
-        <a 
-            href="{% url 'course_list' %}" 
-            class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md text-sm hover:bg-gray-400 focus:outline-none"
-        >
-            Clear
-        </a>
-        {% endif %}
-    </form>
-    <a href="#">
-        <button class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-            Add Course
-        </button>
+  <form method="GET" action="{% url 'course_list' %}" class="flex items-center space-x-2">
+    <input 
+      type="text" 
+      name="q" 
+      value="{{ query }}" 
+      placeholder="Search by title..." 
+      class="w-64 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-red-500 dark:bg-gray-700 dark:text-white"
+    >
+    <button 
+      type="submit" 
+      class="px-4 py-2 bg-red-700 text-white rounded-md text-sm hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-500"
+    >
+      Search
+    </button>
+    {% if query %}
+    <a 
+      href="{% url 'course_list' %}" 
+      class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md text-sm hover:bg-gray-400 focus:outline-none"
+    >
+      Clear
     </a>
-</div>
-<div class="relative overflow-x-auto ">
-    {% if courses %}
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-            <th scope="col" class="px-6 py-3">
-                Course
-            </th>
-            <th scope="col" class="px-6 py-3 text-center align-middle">
-                Points
-            </th>
-            <th scope="col" class="px-6 py-3 text-center align-middle">
-                Action
-            </th>    
-        </thead>
-        <tbody>
-            {% for course in courses %}
-            <tr class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                <td class="px-4 py-2 align-top">
-                    <div class="w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                        <div class="flex min-h-[120px]">
-                            <div class="flex items-center justify-center w-20 bg-gray-100 dark:bg-gray-700">
-                                {% if course.image_url %}
-                                    <img class="h-14 w-14 object-cover rounded-full" src="{{ course.image_url }}" alt="Course image">
-                                {% else %}
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"/>
-                                    </svg>                                  
-                                {% endif %}
-                            </div>
-                            <div class="p-3 flex flex-col justify-between w-[calc(100%-80px)]">
-                                <h2 class="text-base font-semibold text-gray-900 dark:text-white truncate">
-                                    {{ course.title }}
-                                </h2>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[240px]" title="{{ course.description }}">
-                                    {{ course.description }}
-                                </p>
-                                <div class="flex space-x-1 mt-2">
-                                    <span class="text-white bg-green-600 text-xs px-2 py-0.5 rounded-full">Beginner</span>
-                                    <span class="text-white bg-blue-600 text-xs px-2 py-0.5 rounded-full">Pro</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td class="px-4 py-2 text-sm whitespace-nowrap text-center align-middle">
-                    <h5 class="text-lg font-medium">{{ course.points }}</h5>
-                </td>
-                <td class="px-4 py-2 text-sm whitespace-nowrap text-center align-middle">
-                    <a href="{% url 'course_by_id' course.id %}">
-                        <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                            Go to Course
-                        </button>
-                    </a>
-                </td>    
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <div class="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-md mt-4 mx-4">
-        <svg class="w-12 h-12 mb-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">No Courses found</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">
-            We couldn't find any courses matching your search.
-        </p>
-    </div>
     {% endif %}
- 
+  </form>
+  <a href="#">
+    <button class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+      Add Course
+    </button>
+  </a>
 </div>
 
+<div class="relative overflow-x-auto mx-4">
+  {% if courses %}
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Course</th>
+          <th scope="col" class="px-6 py-3 text-center">Points</th>
+          <th scope="col" class="px-6 py-3 text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+          <tr class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <td class="px-4 py-2 align-top">
+              <div class="w-full bg-white rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                <div class="flex min-h-[120px]">
+                  <div class="flex items-center justify-center w-20 bg-gray-100 dark:bg-gray-700">
+                    {% if course.image_url %}
+                      <img class="h-14 w-14 object-cover rounded-full" src="{{ course.image_url }}" alt="Course image">
+                    {% else %}
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 5h6m-6 4h6M10 3v4h4V3h-4Z"/>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <div class="p-3 flex flex-col justify-between w-[calc(100%-80px)]">
+                    <h2 class="text-base font-semibold text-gray-900 dark:text-white truncate">{{ course.title }}</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 truncate max-w-[240px]" title="{{ course.description }}">
+                      {{ course.description }}
+                    </p>
+
+                    <!-- Levels badges -->
+                    <div class="flex space-x-1 mt-2">
+                      {% for level in course.levels.all %}
+                        <span class="text-white text-xs px-2 py-0.5 rounded-full
+                          {% if level.level == 'beginner' %}bg-green-600
+                          {% elif level.level == 'intermediate' %}bg-yellow-600
+                          {% elif level.level == 'advanced' %}bg-red-600
+                          {% endif %}
+                        ">
+                          {{ level.get_level_display }}
+                        </span>
+                      {% empty %}
+                        <span class="text-gray-500 italic text-xs">No levels</span>
+                      {% endfor %}
+                    </div>
+
+                    <!-- Categories and Items under each level -->
+                    <div class="mt-2">
+                      {% for level in course.levels.all %}
+                        <div class="mt-2">
+                          <h4 class="font-semibold text-sm text-gray-700 dark:text-gray-300">{{ level.get_level_display }}</h4>
+                          {% if level.categories.exists %}
+                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 text-xs">
+                              {% for category in level.categories.all %}
+                                <li>
+                                  <strong>{{ category.name }}</strong>
+                                  <ul class="list-disc list-inside ml-4 mt-1">
+                                    {% for item in category.items.all %}
+                                      <li>{{ item.title }}</li>
+                                    {% empty %}
+                                      <li class="italic text-gray-400">No items</li>
+                                    {% endfor %}
+                                  </ul>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% else %}
+                            <p class="italic text-gray-400 text-xs mt-1">No categories</p>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="px-4 py-2 text-sm whitespace-nowrap text-center align-middle">
+              <h5 class="text-lg font-medium">{{ course.points }}</h5>
+            </td>
+            <td class="px-4 py-2 text-sm whitespace-nowrap text-center align-middle">
+              <a href="{% url 'course_by_id' course.id %}">
+                <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-3 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                  Go to Course
+                </button>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600 rounded-md mt-4 mx-4">
+      <svg class="w-12 h-12 mb-3 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">No Courses found</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400 text-center mb-4">
+        We couldn't find any courses matching your search.
+      </p>
+    </div>
+  {% endif %}
+</div>
 
 {% endblock content %}

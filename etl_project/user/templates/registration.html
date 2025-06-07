@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-xl mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow">
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6">Register</h2>
+
+    <form id="registrationForm" method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            {{ form.email }}
+        </div>
+
+        <div>
+            <label for="{{ form.mobile.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mobile</label>
+            {{ form.mobile }}
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+            <div>
+                <label for="{{ form.firstName.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
+                {{ form.firstName }}
+            </div>
+            <div>
+                <label for="{{ form.middleName.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Middle Name</label>
+                {{ form.middleName }}
+            </div>
+            <div>
+                <label for="{{ form.lastName.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
+                {{ form.lastName }}
+            </div>
+        </div>
+
+        <div>
+            <label for="{{ form.role.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
+            {{ form.role }}
+        </div>
+
+        <div>
+            <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
+            {{ form.username }}
+        </div>
+
+        <div>
+            <label for="{{ form.plain_password.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            {{ form.plain_password }}
+        </div>
+
+        <div>
+            <button type="submit" class="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md font-semibold shadow">
+                Register
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

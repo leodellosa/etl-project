@@ -106,7 +106,7 @@ def register_user(request):
                 response = requests.post(baseUrl, json=payload,timeout=5)
                 if response.status_code == 201:
                     messages.success(request, "Registration successful. You can now log in.")
-                    return redirect('register')
+                    return redirect('login')  # Redirect to a page after successful registration
                 else:
                     error = response.json()
                     error_msg = error.get("error",  error.get("detail","Error registering user."))
@@ -165,7 +165,7 @@ def login_view(request):
                         messages.error(request, "Failed to fetch user details.")
                         logger.error(f"Error fetching user details: {user_response.status_code} - {user_response.text}")
                     messages.success(request, "Login successful.")
-                    return redirect('user_list')
+                    return redirect('course_list')  # Redirect to a page after successful login
                 
                 else:
                     try:

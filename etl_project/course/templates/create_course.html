@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h2 class="text-3xl font-bold text-red-700 dark:text-red-400 mb-6">Create Course</h2>
+
+  <form method="POST" id="course-form">
+    {% csrf_token %}
+
+    <!-- Course Info -->
+    <div class="mb-8 p-6 bg-white rounded shadow">
+      <h3 class="text-xl font-semibold mb-4 text-red-700">Course Information</h3>
+      {% for field in course_form %}
+        <div class="mb-4">
+          <label class="block font-medium text-sm text-gray-700 mb-1">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Levels -->
+    <div id="levels-formset">
+      {{ level_formset.management_form }}
+      {% for level_form in level_formset %}
+        <div class="border-t-4 border-red-600 p-6 rounded bg-gray-50 mb-6 shadow" data-level-index="{{ forloop.counter0 }}">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-lg font-semibold text-red-700 level-heading">Level 1</h3>
+            <!-- Remove Level button will be added by JS -->
+          </div>
+          {% for field in level_form %}
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+              {{ field }}
+            </div>
+          {% endfor %}
+
+          <!-- Categories Section -->
+          <div class="mt-4">
+            <h4 class="text-md font-semibold text-red-600 mb-2">Categories</h4>
+            <!-- Category Management Form for this level -->
+            <input type="hidden" name="categories-{{ forloop.counter0 }}-TOTAL_FORMS" id="id_categories-{{ forloop.counter0 }}-TOTAL_FORMS" value="0">
+            <input type="hidden" name="categories-{{ forloop.counter0 }}-INITIAL_FORMS" id="id_categories-{{ forloop.counter0 }}-INITIAL_FORMS" value="0">
+
+            <!-- Nested Category Container (JS will populate this) -->
+            <div class="categories-container space-y-4" id="categories-{{ forloop.counter0 }}">
+              <!-- JS will insert category forms here -->
+            </div>
+
+            <!-- Add Category Button -->
+            <button type="button"
+                    class="add-category-btn mt-3 text-red-600 hover:text-blue-800 font-semibold flex items-center gap-1"
+                    data-level="{{ forloop.counter0 }}">
+              <span class="text-xl">➕</span> Add Category
+            </button>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Add Level Button -->
+    <button type="button" id="add-level"
+            class="px-4 py-2 bg-red-700 text-white rounded-md text-sm hover:bg-red-800 focus:outline-none focus:ring-1 focus:ring-red-500">
+      <span class="text-xl">➕</span> Add Level
+    </button>
+
+    <!-- Submit -->
+    <div class="mt-8 flex justify-end">
+      <button type="submit"
+              class="bg-red-700 text-white px-6 py-2 rounded hover:bg-red-800 font-semibold">
+        Save Course
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Category template (outside the form, for JS cloning) -->
+<div id="category-template" class="category-form hidden bg-white border border-blue-200 rounded p-4 shadow-sm relative">
+  <div class="flex justify-between items-center mb-2">
+    <h5 class="font-semibold text-blue-700">Category</h5>
+    <button type="button" class="remove-category-btn text-red-500 hover:text-red-700 text-lg" title="Remove category">✖</button>
+  </div>
+  <select name="categories-__prefix__-name" id="id_categories-__prefix__-name" class="form-select w-full mb-2">
+    <option value="">Select category</option>
+    <option value="EXERCISE">EXERCISE</option>
+    <option value="REFERENCE">REFERENCE</option>
+  </select>
+  <!-- Item management form for this category -->
+  <input type="hidden" name="items-__level__-__cat__-TOTAL_FORMS" id="id_items-__level__-__cat__-TOTAL_FORMS" value="0">
+  <input type="hidden" name="items-__level__-__cat__-INITIAL_FORMS" id="id_items-__level__-__cat__-INITIAL_FORMS" value="0">
+  <div class="mt-3">
+    <h6 class="font-semibold text-green-700 mb-1">Items</h6>
+    <div class="items-container space-y-2" id="items-__level__-__cat__"></div>
+    <button type="button" class="add-item-btn text-green-600 hover:text-green-800 font-semibold mt-2 flex items-center gap-1" data-level="__level__" data-cat="__cat__">
+      <span class="text-lg">➕</span> Add Item
+    </button>
+  </div>
+</div>
+
+<!-- Item template (outside the form, for JS cloning) -->
+<div id="item-template" class="item-form hidden flex items-center gap-2 mb-2">
+  <input type="text" name="items-__level__-__cat__-__prefix__-name" id="id_items-__level__-__cat__-__prefix__-name" class="form-input w-full rounded" placeholder="Item name">
+  <button type="button" class="remove-item-btn text-red-500 hover:text-red-700" title="Remove item">✖</button>
+</div>
+
+<script src="{% static 'js/formsets.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Edit Profile</h2>
+
+  <form method="POST" action="#" class="space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div>
+        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+          {{ field.label }}
+        </label>
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ field.errors|striptags }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <!-- Submit -->
+    <div class="flex justify-end mt-10">
+      <button type="submit"
+              class="px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

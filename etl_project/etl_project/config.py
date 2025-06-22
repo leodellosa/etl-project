@@ -28,7 +28,8 @@ def get_api_urls():
 
     return user_api_url, course_api_url
 
-USER_API_URL, COURSE_API_URL = get_api_urls()
+
+# USER_API_URL, COURSE_API_URL = get_api_urls()
 
 # Task to allow settings of environment variable in ECS not from .env file
 # import os

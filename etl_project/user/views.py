@@ -97,6 +97,7 @@ def user_detail(request, id):
 def register_user(request):
     USER_API_URL, _ = get_api_urls()
     settings = APISettings.objects.first()
+    print(f"DJANGO_ENV: {DJANGO_ENV} and USER_API_URL: {USER_API_URL}")
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():

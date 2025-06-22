@@ -32,7 +32,7 @@ Before running the project, ensure you have the following installed:
 
 ### 4. Set Up Tailwind CSS
 #### Since Tailwind CSS is used for styling, run the following to set up Tailwind:
-- etl_project
+- cd etl_project
 - python manage.py tailwind install
 
 ### 5. Set Up the Database
